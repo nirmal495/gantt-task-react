@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
 import styles from "./task-list-table.module.css";
-import { Task } from "../../types/public-types";
+import { Task, Column } from "../../types/public-types";
 
 const localeDateStringCache = {};
 const toLocaleDateStringFactory = (locale: string) => (
@@ -30,6 +30,7 @@ export const TaskListTableDefault: React.FC<{
   locale: string;
   tasks: Task[];
   selectedTaskId: string;
+  listColumns: Column[];
   setSelectedTask: (taskId: string) => void;
   onExpanderClick: (task: Task) => void;
 }> = ({
@@ -40,6 +41,7 @@ export const TaskListTableDefault: React.FC<{
   fontSize,
   locale,
   onExpanderClick,
+  listColumns,
 }) => {
   const toLocaleDateString = useMemo(() => toLocaleDateStringFactory(locale), [
     locale,
@@ -67,46 +69,53 @@ export const TaskListTableDefault: React.FC<{
             style={{ height: rowHeight }}
             key={`${t.id}row`}
           >
-            <div
-              className={styles.taskListCell}
-              style={{
-                minWidth: rowWidth,
-                maxWidth: rowWidth,
-              }}
-              title={t.name}
-            >
-              <div className={styles.taskListNameWrapper}>
+            {listColumns.map((column, index) => (
+              <React.Fragment key={index}>
                 <div
-                  className={
-                    expanderSymbol
-                      ? styles.taskListExpander
-                      : styles.taskListEmptyExpander
-                  }
-                  onClick={() => onExpanderClick(t)}
+                  className={styles.taskListCell}
+                  style={{
+                    minWidth: rowWidth,
+                    maxWidth: rowWidth,
+                  }}
+                  title={t[column.accessor]}
                 >
-                  {expanderSymbol}
+                  <div className={styles.taskListNameWrapper}>
+                    {column.showExpander ? (
+                      <React.Fragment>
+                        <div
+                          className={
+                            expanderSymbol
+                              ? styles.taskListExpander
+                              : styles.taskListEmptyExpander
+                          }
+                          onClick={() => onExpanderClick(t)}
+                        >
+                          {expanderSymbol}
+                        </div>
+                        <div>{t[column.accessor]}</div>
+                      </React.Fragment>
+                    ) : (
+                      <div
+                        className={styles.taskListCell}
+                        style={{
+                          minWidth: rowWidth,
+                          maxWidth: rowWidth,
+                        }}
+                      >
+                        &nbsp;
+                        {typeof t[column.accessor] === "number" ||
+                        typeof t[column.accessor] === "string"
+                          ? t[column.accessor]
+                          : toLocaleDateString(
+                              t[column.accessor],
+                              dateTimeOptions
+                            )}
+                      </div>
+                    )}
+                  </div>
                 </div>
-                <div>{t.name}</div>
-              </div>
-            </div>
-            <div
-              className={styles.taskListCell}
-              style={{
-                minWidth: rowWidth,
-                maxWidth: rowWidth,
-              }}
-            >
-              &nbsp;{toLocaleDateString(t.start, dateTimeOptions)}
-            </div>
-            <div
-              className={styles.taskListCell}
-              style={{
-                minWidth: rowWidth,
-                maxWidth: rowWidth,
-              }}
-            >
-              &nbsp;{toLocaleDateString(t.end, dateTimeOptions)}
-            </div>
+              </React.Fragment>
+            ))}
           </div>
         );
       })}

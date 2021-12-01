@@ -29,6 +29,13 @@ export interface Task {
   hideChildren?: boolean;
 }
 
+export interface Column {
+  label: string;
+  accessor: string;
+  formatter: string;
+  showExpander: boolean;
+}
+
 export interface EventOption {
   /**
    * Time step value for date changes.
@@ -103,6 +110,7 @@ export interface StylingOption {
   arrowColor?: string;
   arrowIndent?: number;
   todayColor?: string;
+  listColumns?: Column[];
   TooltipContent?: React.FC<{
     task: Task;
     fontSize: string;
@@ -113,6 +121,7 @@ export interface StylingOption {
     rowWidth: string;
     fontFamily: string;
     fontSize: string;
+    listColumns: Column[];
   }>;
   TaskListTable?: React.FC<{
     rowHeight: number;
@@ -122,6 +131,7 @@ export interface StylingOption {
     locale: string;
     tasks: Task[];
     selectedTaskId: string;
+    listColumns: Column[];
     /**
      * Sets selected task by id
      */
@@ -132,4 +142,5 @@ export interface StylingOption {
 
 export interface GanttProps extends EventOption, DisplayOption, StylingOption {
   tasks: Task[];
+  listColumns: Column[];
 }

@@ -50,6 +50,7 @@ export const Gantt: React.FunctionComponent<GanttProps> = ({
   TooltipContent = StandardTooltipContent,
   TaskListHeader = TaskListHeaderDefault,
   TaskListTable = TaskListTableDefault,
+  listColumns = [],
   onDateChange,
   onProgressChange,
   onDoubleClick,
@@ -394,6 +395,7 @@ export const Gantt: React.FunctionComponent<GanttProps> = ({
     taskListRef,
     setSelectedTask: handleSelectedTask,
     onExpanderClick: handleExpanderClick,
+    listColumns,
     TaskListHeader,
     TaskListTable,
   };

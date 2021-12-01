@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { BarTask } from "../../types/bar-task";
-import { Task } from "../../types/public-types";
+import { Task, Column } from "../../types/public-types";
 
 export type TaskListProps = {
   headerHeight: number;
@@ -22,6 +22,7 @@ export type TaskListProps = {
     rowWidth: string;
     fontFamily: string;
     fontSize: string;
+    listColumns: Column[];
   }>;
   TaskListTable: React.FC<{
     rowHeight: number;
@@ -31,9 +32,11 @@ export type TaskListProps = {
     locale: string;
     tasks: Task[];
     selectedTaskId: string;
+    listColumns: Column[];
     setSelectedTask: (taskId: string) => void;
     onExpanderClick: (task: Task) => void;
   }>;
+  listColumns: Column[];
 };
 
 export const TaskList: React.FC<TaskListProps> = ({
@@ -53,6 +56,7 @@ export const TaskList: React.FC<TaskListProps> = ({
   horizontalContainerClass,
   TaskListHeader,
   TaskListTable,
+  listColumns,
 }) => {
   const horizontalContainerRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
@@ -66,6 +70,7 @@ export const TaskList: React.FC<TaskListProps> = ({
     fontFamily,
     fontSize,
     rowWidth,
+    listColumns,
   };
   const selectedTaskId = selectedTask ? selectedTask.id : "";
   const tableProps = {
@@ -78,6 +83,7 @@ export const TaskList: React.FC<TaskListProps> = ({
     selectedTaskId: selectedTaskId,
     setSelectedTask,
     onExpanderClick,
+    listColumns,
   };
 
   return (

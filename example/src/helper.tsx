@@ -1,8 +1,6 @@
-import { Task } from "../../dist/types/public-types";
-
 export function initTasks() {
   const currentDate = new Date();
-  const tasks: Task[] = [
+  const tasks = [
     {
       start: new Date(currentDate.getFullYear(), currentDate.getMonth(), 1),
       end: new Date(currentDate.getFullYear(), currentDate.getMonth(), 15),
@@ -10,8 +8,8 @@ export function initTasks() {
       id: "ProjectSample",
       progress: 25,
       type: "project",
-
       hideChildren: false,
+      priority: "High"
     },
     {
       start: new Date(currentDate.getFullYear(), currentDate.getMonth(), 1),
@@ -27,6 +25,7 @@ export function initTasks() {
       progress: 45,
       type: "task",
       project: "ProjectSample",
+      priority: "High"
     },
     {
       start: new Date(currentDate.getFullYear(), currentDate.getMonth(), 2),
@@ -37,6 +36,7 @@ export function initTasks() {
       dependencies: ["Task 0"],
       type: "task",
       project: "ProjectSample",
+      priority: "High"
     },
     {
       start: new Date(currentDate.getFullYear(), currentDate.getMonth(), 4),
@@ -47,6 +47,7 @@ export function initTasks() {
       dependencies: ["Task 1"],
       type: "task",
       project: "ProjectSample",
+      priority: "High"
     },
     {
       start: new Date(currentDate.getFullYear(), currentDate.getMonth(), 8),
@@ -57,6 +58,7 @@ export function initTasks() {
       dependencies: ["Task 2"],
       type: "task",
       project: "ProjectSample",
+      priority: "High"
     },
     {
       start: new Date(currentDate.getFullYear(), currentDate.getMonth(), 8),
@@ -67,6 +69,7 @@ export function initTasks() {
       progress: 70,
       dependencies: ["Task 2"],
       project: "ProjectSample",
+      priority: "High"
     },
     {
       start: new Date(currentDate.getFullYear(), currentDate.getMonth(), 15),
@@ -77,6 +80,7 @@ export function initTasks() {
       type: "milestone",
       dependencies: ["Task 4"],
       project: "ProjectSample",
+      priority: "High"
     },
     {
       start: new Date(currentDate.getFullYear(), currentDate.getMonth(), 18),
@@ -86,12 +90,13 @@ export function initTasks() {
       progress: 0,
       isDisabled: true,
       type: "task",
+      priority: "High"
     },
   ];
   return tasks;
 }
 
-export function getStartEndDateForProject(tasks: Task[], projectId: string) {
+export function getStartEndDateForProject(tasks: any[], projectId: string) {
   const projectTasks = tasks.filter(t => t.project === projectId);
   let start = projectTasks[0].start;
   let end = projectTasks[0].end;
