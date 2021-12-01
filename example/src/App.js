@@ -310,11 +310,11 @@ const App = () => {
         ganttHeight={300}
         columnWidth={columnWidth}
         listColumns={[
-          {label: 'Name', accessor: 'name', formatter: '', showExpander: true}, 
-          {label: 'From', accessor: 'start', formatter: '', showExpander: false},
-          {label: 'To', accessor: 'end', formatter: '', showExpander: false},
-          {label: 'Progress', accessor: 'progress', formatter: '', showExpander: false},
-          {label: 'Priority', accessor: 'priority', formatter: '', showExpander: false},
+          {label: 'Name', accessor: 'name', formatter: {}, showExpander: true}, 
+          {label: 'From', accessor: 'start', formatter: {year: 'numeric', month: 'short', day: 'numeric'}, showExpander: false},
+          {label: 'To', accessor: 'end', formatter: {year: 'numeric', month: 'short', day: 'numeric'}, showExpander: false},
+          {label: 'Progress', accessor: 'progress', formatter: {}, showExpander: false},
+          {label: 'Priority', accessor: 'priority', formatter: {}, showExpander: false},
         ]}
       />
     </div>

@@ -15,12 +15,6 @@ const toLocaleDateStringFactory = (locale: string) => (
   }
   return lds;
 };
-const dateTimeOptions: Intl.DateTimeFormatOptions = {
-  weekday: "short",
-  year: "numeric",
-  month: "long",
-  day: "numeric",
-};
 
 export const TaskListTableDefault: React.FC<{
   rowHeight: number;
@@ -103,12 +97,11 @@ export const TaskListTableDefault: React.FC<{
                         }}
                       >
                         &nbsp;
-                        {typeof t[column.accessor] === "number" ||
-                        typeof t[column.accessor] === "string"
+                        {Object.keys(column.formatter).length === 0
                           ? t[column.accessor]
                           : toLocaleDateString(
                               t[column.accessor],
-                              dateTimeOptions
+                              column.formatter
                             )}
                       </div>
                     )}

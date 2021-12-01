@@ -32,7 +32,7 @@ export interface Task {
 export interface Column {
   label: string;
   accessor: string;
-  formatter: string;
+  formatter: Object;
   showExpander: boolean;
 }
 
